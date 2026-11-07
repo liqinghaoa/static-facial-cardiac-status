@@ -1,0 +1,50 @@
+project_root: .
+paths:
+  image_dir: protected_inputs/approved_without_r3dpr_source_images
+  split_csv: protected_inputs/approved_500_record_split.csv
+  pilot_output_dir: runs/preprocess_wholeface_without_r3dpr_pilot
+  full_output_dir: runs/preprocess_wholeface_without_r3dpr
+detection:
+  min_detection_confidence: 0.5
+  model_selection: 0
+  expand_top_ratio: 0.1
+  expand_bottom_ratio: 0.2
+  expand_side_ratio: 0.2
+geometry:
+  output_width: 256
+  output_height: 320
+  side_margin_ratio: 0.03
+  top_margin_ratio: 0.08
+  bottom_margin_ratio: 0.025
+  face_quantile_low: 0.02
+  face_quantile_high: 0.98
+parser:
+  model: bisenet
+  checkpoint: ../assets/face_parsing/79999_iter.pth
+  device: auto
+face_mask:
+  scheme: B_keep_facial_features_remove_hair_background
+  min_component_area_ratio: 0.0002
+  keep_classes:
+  - skin
+  - nose
+  - left_brow
+  - right_brow
+  - left_eye
+  - right_eye
+  - mouth
+  - upper_lip
+  - lower_lip
+  remove_classes:
+  - eye_glasses
+  - hair
+  - left_ear
+  - right_ear
+  - earring
+  - neck
+  - necklace
+  - cloth
+  - hat
+  - background
+pilot:
+  count: 32

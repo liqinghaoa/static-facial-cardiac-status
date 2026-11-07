@@ -1,0 +1,75 @@
+experiment:
+  name: Clinical_Logistic_SEX_Age_BMI_330_5fold_v2
+  output_dir: runs/clinical_basic_info_330
+data:
+  workbook: protected_inputs/workbook.replace_with_approved_input
+  sheet: Data 330
+  validation_source_workbook: protected_inputs/validation_source_workbook.replace_with_approved_input
+  validation_source_sheet: protected_inputs/validation_source_sheet.replace_with_approved_input
+  id_column: ID
+  group_column: patient_group_id
+  fold_column: fold
+  outcome_column: binary_label
+  folds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  expected_records: 330
+  expected_groups: 330
+  expected_class_counts:
+  - 86
+  - 244
+  expected_fold_sizes:
+  - 66
+  - 66
+  - 66
+  - 66
+  - 66
+  expected_fold_class_counts:
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 18
+    - 48
+model:
+  features:
+  - SEX
+  - Age_y
+  - BMI_kg_m2
+  continuous_features:
+  - Age_y
+  - BMI_kg_m2
+  type: unpenalized_logistic_regression
+  solver: lbfgs
+  fit_intercept: true
+  class_weight: null
+  max_iter: 5000
+  tolerance: 1.0e-10
+  sex_encoding:
+    female: 0
+    male: 1
+  positive_class: 1
+  standardization: training_fold_only
+  missing_values: error
+  nonlinear_terms: false
+  interactions: false
+  variable_selection: false
+  hyperparameter_search: false
+evaluation:
+  classification_threshold: 0.5
+  bootstrap_replicates: 2000
+  bootstrap_seed: 2026
+  bootstrap_unit: patient_group_id
+  bootstrap_refit: false
+  confidence_level: 0.95
+  calibration_bins: 10
+final_model:
+  fit_on_all_records_after_oof: true
+  use_full_data_predictions_for_evaluation: false

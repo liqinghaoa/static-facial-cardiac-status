@@ -1,0 +1,11 @@
+paths:
+  relighting_root: ../vendor/PortraitRelighting
+  input_dir: protected_inputs/P0_Physics_Audit_v1/images/raw_scene
+  output_root: runs/P2_ExampleSH093_FixedLight_v1
+sh:
+  index: 93
+run:
+  limit: null
+  case_ids: null
+  resume: false
+  overwrite: false

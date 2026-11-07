@@ -1,0 +1,23 @@
+name: face-media-review
+channels:
+- pytorch
+- nvidia
+- conda-forge
+dependencies:
+- python=3.11.15
+- numpy=1.26.4
+- pandas=2.2.3
+- scipy=1.17.1
+- scikit-learn=1.9.0
+- joblib=1.5.3
+- pyyaml=6.0.2
+- openpyxl=3.1.5
+- pillow=12.3.0
+- matplotlib=3.11.1
+- pytorch=2.3.0
+- torchvision=0.18.0
+- pytorch-cuda=12.1
+- pip
+- pip:
+  - opencv-python==4.10.0.84
+  - mediapipe==0.10.14

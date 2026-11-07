@@ -1,0 +1,46 @@
+project_root: .
+split_csv: protected_inputs/approved_500_record_split.csv
+image_dir: protected_inputs/approved_with_r3dpr_source_images
+output_dir: runs/preprocess_roi_with_r3dpr
+global_intermediate_dir: null
+save_intermediates: true
+overwrite: false
+max_samples: null
+seed: 42
+num_qc_preview: 20
+parsing_model: bisenet
+parsing_checkpoint: ../assets/face_parsing/79999_iter.pth
+parsing_device: auto
+min_detection_confidence: 0.5
+image_size: 224
+canvas_size: 224
+roi_types:
+- eye_roi
+- cheek_roi
+- lip_roi
+core_roi_types:
+- eye_roi
+- cheek_roi
+- lip_roi
+padding_color:
+- 0
+- 0
+- 0
+keep_aspect_ratio: true
+output_format: png
+min_roi_width: 8
+min_roi_height: 8
+final_mask_mode: hybrid
+forehead_band_ratio: 0.35
+hair_repair_threshold: 0.1
+jaggedness_threshold: 0.04
+enable_jaggedness_trigger: false
+forehead_expand_ratio: 0.15
+side_expand_ratio: 0.04
+chin_expand_ratio: 0.02
+max_padding_ratio: 0.6
+max_background_ratio: 0.2
+max_cloth_ratio: 0.05
+max_neck_ratio: 0.05
+cheek_background_warning: 0.15
+eye_nose_warning: 0.1

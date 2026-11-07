@@ -1,0 +1,28 @@
+experiment:
+  name: ClinicalLogistic_ResNet18_FixedLogit05_BasicInfo_330_v2
+  output_dir: runs/basic_information_fixed_fusion_330
+data:
+  clinical_predictions: protected_inputs/clinical_predictions.replace_with_approved_input
+  face_experiment: protected_inputs/face_experiment.replace_with_approved_input
+  expected_records: 330
+  expected_groups: 330
+  expected_face_source_records: 500
+  expected_class_counts:
+  - 86
+  - 244
+fusion:
+  clinical_weight: 0.5
+  face_weight: 0.5
+  intercept: 0.0
+  face_score: logit_patient_minus_logit_control
+  fit_parameters: false
+evaluation:
+  classification_threshold: 0.5
+  bootstrap_replicates: 2000
+  bootstrap_seed: 2026
+  confidence_level: 0.95
+  bootstrap_unit: patient_group_id
+  bootstrap_refit: false
+calibration:
+  max_iter: 5000
+  tolerance: 1.0e-10

@@ -1,0 +1,59 @@
+experiment:
+  name: R3DPR_ResNet50_ControlVsPatient_Binary_224x224_manual_shift_lip_roi_fullbaseline_ls005_nested_direct_5fold
+  output_dir: runs/lip_resnet50
+task:
+  type: binary_control_vs_patient
+  num_classes: 2
+  negative_class: control
+  positive_class: patient
+data:
+  table_csv: protected_inputs/approved_500_record_split.csv
+  image_root: protected_inputs/approved_processed_images
+  image_filename_template: '{ID}.png'
+  id_column: ID
+  group_id_column: patient_group_id
+  fold_column: fold
+  label_column: binary_label
+  sex_column: SEX
+  n_folds: 5
+  source_image_height: 224
+  source_image_width: 224
+  image_height: 224
+  image_width: 224
+model:
+  backbone: resnet50
+  pretrained: imagenet
+  num_classes: 2
+  trainability_strategy: full_finetune
+train:
+  batch_size: 16
+  epochs: 50
+  optimizer: AdamW
+  lr: 0.0001
+  weight_decay: 0.0001
+  loss: weighted_ce_label_smoothing
+  label_smoothing_alpha: 0.05
+  early_stopping_patience: 10
+  monitor_metric: macro_auc
+  random_seed: 2026
+  num_workers: 0
+  pin_memory: true
+augmentation:
+  horizontal_flip: true
+normalize:
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+nested_direct:
+  protocol: outer_5fold_inner_holdout_direct_test
+  inner_validation_fraction: 0.2
+  inner_split_seed: 20260820
+  stratify_columns:
+  - binary_label
+  - SEX
+  use_group_constraint: false

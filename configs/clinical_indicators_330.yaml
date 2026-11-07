@@ -1,0 +1,76 @@
+experiment:
+  name: Clinical_Logistic_BNP_hsCTnT_330_5fold_FixedFaceFusion_v1
+  output_dir: runs/clinical_indicators_330
+data:
+  workbook: protected_inputs/workbook.replace_with_approved_input
+  sheet: Data 330
+  folds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  expected_records: 330
+  expected_groups: 330
+  expected_records_per_fold: 66
+  expected_groups_per_fold: 66
+  expected_class_counts:
+  - 86
+  - 244
+  expected_test_class_counts:
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 17
+    - 49
+  - - 18
+    - 48
+  face_experiment: protected_inputs/face_experiment.replace_with_approved_input
+  expected_face_source_records: 500
+  biomarker_window_days: 7
+  biomarker_time_reference: application_time_preceding_each_photo
+variants:
+  clinical5:
+  - SEX
+  - Age_y
+  - BMI_kg_m2
+  - BNP_pg_mL
+  - hs_cTnT_source_unit
+model:
+  type: unpenalized_logistic_regression
+  solver: lbfgs
+  fit_intercept: true
+  class_weight: null
+  max_iter: 5000
+  tolerance: 1.0e-10
+  sex_encoding:
+    female: 0
+    male: 1
+  positive_class: 1
+  standardization: training_fold_only
+  missing_values: error
+  nonlinear_terms: false
+  interactions: false
+  variable_selection: false
+  hyperparameter_search: false
+  biomarker_transformation: none
+fusion:
+  clinical_weight: 0.5
+  face_weight: 0.5
+  intercept: 0.0
+  face_score: logit_patient_minus_logit_control
+  fit_parameters: false
+evaluation:
+  classification_threshold: 0.5
+  bootstrap_replicates: 2000
+  bootstrap_seed: 2026
+  confidence_level: 0.95
+  bootstrap_unit: patient_group_id
+  bootstrap_refit: false
+  calibration_bins: 10
+final_model:
+  fit_on_all_records_after_oof: true
+  use_full_data_predictions_for_evaluation: false
