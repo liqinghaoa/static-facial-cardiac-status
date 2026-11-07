@@ -1,12 +1,5 @@
-# Code review package
 
-This source-only package contains the study-specific preprocessing, model,
-evaluation, and figure programs needed for editorial and reviewer inspection.
-It does not contain protected participant data, result tables, study-trained
-checkpoints, or third-party model weights. Runtime inputs must be supplied
-through the approved local data-access arrangement.
-
-## Directory structure
+# Directory structure
 
 - `configs/`: preprocessing and experiment configuration files.
 - `src/preprocessing/`: SH093 R3DPR, whole-face, and cheek/eye/lip ROI
@@ -17,12 +10,13 @@ through the approved local data-access arrangement.
   and Grad-CAM entry points.
 - `src/figures/`: source programs for the retained manuscript and
   supplementary figures.
-- `vendor/`: retained upstream R3DPR and rendering source dependencies.
+- `vendor/`: retained upstream R3DPR and rendering source dependencies. The
+  empty `checkpoints/`, `BFM/`, `pretrained/`, and `trained_model/` directories
+  are intentional runtime placement directories; no model files are included.
 - `environment.yml`: the single package environment specification.
 - `THIRD_PARTY_LICENSES.md`: centralized notices for retained upstream code.
-- `VERSION.txt`: package version marker.
 
-## Environment preparation
+# Environment preparation
 
 Create the single pinned environment and expose `src/` on `PYTHONPATH`:
 
@@ -45,7 +39,7 @@ PyTorch/CUDA runtime. The package does not download missing resources
 automatically. Supply approved input data and the required runtime resources
 at the paths selected in the relevant configuration files before execution.
 
-## Reproduction order
+# Reproduction order
 
 1. Replace the `protected_inputs/` placeholders in the selected YAML files
    with approved, de-identified input paths.
@@ -83,7 +77,3 @@ at the paths selected in the relevant configuration files before execution.
    fixed-fusion and Grad-CAM programs using the approved experiment outputs.
 7. Run the retained programs under `src/figures/` with their approved result
    tables or workbooks to regenerate the corresponding figures.
-
-The package alone cannot regenerate the study results without the protected
-inputs, experiment outputs, and trained checkpoints. Do not place those
-materials, identifiers, or runtime caches inside the upload package.
